@@ -1,4 +1,4 @@
-package kr.project.shortlink.api.exception;
+package kr.project.shortlink.core.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

@@ -26,7 +26,7 @@ public class ShortLinkRepositoryTest {
     @BeforeEach
     void init() throws MalformedURLException {
         this.shortLinkEntity = ShortLinkEntity.builder()
-                .shortId("abscd")
+                .shortLinkId(1L)
                 .uri(URI.create("https://www.naver.com").toURL())
                 .build();
     }
@@ -36,7 +36,7 @@ public class ShortLinkRepositoryTest {
     void create() throws MalformedURLException {
         ShortLinkEntity shortLinkEntity = shortLinkRepository.save(this.shortLinkEntity);
 
-        assertEquals("abscd", shortLinkEntity.getShortId());
+        assertEquals(1L, shortLinkEntity.getShortLinkId());
         assertEquals(URI.create("https://www.naver.com").toURL(), shortLinkEntity.getUri());
         assertNotNull(shortLinkEntity.getCreatedAt());
     }
@@ -46,9 +46,9 @@ public class ShortLinkRepositoryTest {
     void findById() throws MalformedURLException {
         shortLinkRepository.save(this.shortLinkEntity);
 
-        ShortLinkEntity shortLinkEntity = shortLinkRepository.findById(this.shortLinkEntity.getShortId()).get();
+        ShortLinkEntity shortLinkEntity = shortLinkRepository.findById(this.shortLinkEntity.getShortLinkId()).get();
 
-        assertEquals("abscd", shortLinkEntity.getShortId());
+        assertEquals(1L, shortLinkEntity.getShortLinkId());
         assertEquals(URI.create("https://www.naver.com").toURL(), shortLinkEntity.getUri());
         assertNotNull(shortLinkEntity.getCreatedAt());
     }

@@ -1,8 +1,10 @@
 package kr.project.shortlink.api.domain.entity;
 
+import kr.project.shortlink.core.util.Base62Util;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.Comment;
+import org.hibernate.annotations.NaturalId;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -15,15 +17,19 @@ import java.time.LocalDateTime;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
 @Getter
-@Table(name = "SHORT_LINK")
+@Table(name = "SHORT_LINK",
+    uniqueConstraints = @UniqueConstraint(columnNames = "URI")
+)
 @Entity
 public class ShortLinkEntity {
 
     @Id
+    @GeneratedValue
     @Column(name = "SHORT_ID")
     @Comment("아이디")
-    private String shortId;
+    private Long shortLinkId;
 
+    @NaturalId
     @Column(name = "URI", updatable = false, nullable = false)
     @Comment("URI")
     private URL uri;
@@ -34,4 +40,8 @@ public class ShortLinkEntity {
     @ColumnDefault("'CURRENT_TIMESTAMP'")
     @Comment("생성일시")
     private LocalDateTime createdAt = LocalDateTime.now();
+
+    public String getShortId() {
+        return Base62Util.encode(this.shortLinkId);
+    }
 }

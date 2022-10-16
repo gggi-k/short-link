@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @EnableCaching
-@EnableWebMvc
 @EnableTransactionManagement
 @EnableJpaAuditing
 @EnableJpaRepositories
