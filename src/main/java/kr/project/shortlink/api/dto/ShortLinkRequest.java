@@ -12,5 +12,5 @@ import lombok.experimental.Accessors;
 @ToString
 public class ShortLinkRequest {
 
-    private String url;
+    private String uri;
 }
