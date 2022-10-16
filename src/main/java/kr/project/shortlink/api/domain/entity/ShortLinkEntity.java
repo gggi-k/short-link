@@ -1,9 +1,6 @@
 package kr.project.shortlink.api.domain.entity;
 
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.Comment;
 import org.springframework.data.annotation.CreatedDate;
@@ -14,6 +11,7 @@ import java.net.URL;
 import java.time.LocalDateTime;
 
 @EntityListeners(AuditingEntityListener.class)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
 @Getter
