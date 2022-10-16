@@ -25,6 +25,7 @@ public class ShortLinkRequest {
     @NotBlank
     private String uri;
 
+    @Schema(hidden = true)
     public java.net.URL getUriToUrl() {
         try {
             return URI.create(this.uri).toURL();

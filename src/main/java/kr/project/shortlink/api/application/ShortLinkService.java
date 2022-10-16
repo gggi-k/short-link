@@ -7,6 +7,7 @@ import kr.project.shortlink.api.dto.ShortLinkUriProjection;
 import kr.project.shortlink.api.exception.NotFoundException;
 import kr.project.shortlink.api.repository.ShortLinkRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,13 +29,9 @@ public class ShortLinkService {
         ));
     }
 
+    @Cacheable(cacheNames = "shortLinkCache", key = "#shortId")
     @Transactional(readOnly = true)
     public ShortLinkResponse findById(@PathVariable String shortId) {
         return ShortLinkResponse.fromEntity(shortLinkRepository.findById(shortId).orElseThrow(() -> new NotFoundException("존재하지 않는 아이디 입니다")));
-    }
-
-    @Transactional(readOnly = true)
-    public URL findUriById(@PathVariable String shortId) {
-        return shortLinkRepository.findByShortId(shortId, ShortLinkUriProjection.class).getUri();
     }
 }

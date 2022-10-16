@@ -17,6 +17,6 @@ public class RedirectController {
 
     @GetMapping("/{shortId}")
     public RedirectView redirectByShortId(@PathVariable final String shortId) {
-        return new RedirectView(shortLinkService.findUriById(shortId).toString());
+        return new RedirectView(shortLinkService.findById(shortId).getUri().toString());
     }
 }

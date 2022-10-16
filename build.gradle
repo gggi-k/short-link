@@ -22,6 +22,8 @@ ext {
     springdocVersion = "1.6.11"
     mapStructVersion = "1.5.3.Final"
     lombokMapStructVersion = "0.2.0"
+    ehcacheVersion = "3.10.2"
+    cacheApiVersion = "1.1.1"
 }
 
 dependencies {
@@ -31,8 +33,9 @@ dependencies {
     implementation "org.springframework.boot:spring-boot-starter-hateoas"
     implementation "org.springframework.boot:spring-boot-starter-web"
     implementation "org.springdoc:springdoc-openapi-ui:${springdocVersion}"
-    implementation "org.springdoc:springdoc-openapi-security:${springdocVersion}"
     implementation "org.mapstruct:mapstruct:${mapStructVersion}"
+    implementation "org.ehcache:ehcache:${ehcacheVersion}"
+    implementation "javax.cache:cache-api:${cacheApiVersion}"
 
 
     compileOnly "org.projectlombok:lombok"
