@@ -38,6 +38,7 @@ public class RedirectControllerTest {
         given(shortLinkService.findById(anyString()))
                 .willReturn(ShortLinkResponse.fromEntity(
                         ShortLinkEntity.builder()
+                                .shortLinkId(3L)
                                 .uri(URI.create(redirectUri).toURL())
                                 .build()
                 ));

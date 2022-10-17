@@ -13,9 +13,6 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @EnableAspectJAutoProxy
 @EnableScheduling
 @EnableCaching
-@EnableTransactionManagement
-@EnableJpaAuditing
-@EnableJpaRepositories
 @SpringBootApplication
 public class ShortLinkApplication {
 

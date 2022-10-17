@@ -1,12 +1,15 @@
 package kr.project.shortlink.api.presentation;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import kr.project.shortlink.api.application.ShortLinkService;
+import kr.project.shortlink.api.dto.ShortLinkRequest;
 import kr.project.shortlink.api.dto.ShortLinkResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.net.URI;
@@ -24,6 +27,9 @@ public class ShortLinkControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
+    @Autowired
+    private ObjectMapper objectMapper;
+
     @MockBean
     private ShortLinkService shortLinkService;
 
@@ -31,19 +37,23 @@ public class ShortLinkControllerTest {
     @Test
     void create() throws Exception {
 
+
         given(shortLinkService.create(any()))
                 .willReturn(ShortLinkResponse.builder()
                         .shortId("asdfg")
                         .createdAt(LocalDateTime.now())
-                        .uri(URI.create("www.naver.com").toURL())
+                        .uri(URI.create("https://www.naver.com").toURL())
                         .build());
 
-         mockMvc.perform(post("/short-links"))
+         mockMvc.perform(post("/short-links")
+                 .contentType(MediaType.APPLICATION_JSON_VALUE)
+                 .content(objectMapper.writeValueAsString(ShortLinkRequest.create()
+                         .setUri("https://www.naver.com"))))
                  .andExpect(status().isCreated())
                  .andExpectAll(
                      jsonPath("$.shortId").value("asdfg"),
                      jsonPath("$.createdAt").exists(),
-                     jsonPath("$.uri").value("www.naver.com")
+                     jsonPath("$.uri").value("https://www.naver.com")
                  )
                  .andDo(print());
 
@@ -57,7 +67,7 @@ public class ShortLinkControllerTest {
                 .willReturn(ShortLinkResponse.builder()
                         .shortId("asdfg")
                         .createdAt(LocalDateTime.now())
-                        .uri(URI.create("www.naver.com").toURL())
+                        .uri(URI.create("https://www.naver.com").toURL())
                         .build());
 
         mockMvc.perform(get("/short-links/{shortId}", "asdfg"))
@@ -65,7 +75,7 @@ public class ShortLinkControllerTest {
                 .andExpectAll(
                         jsonPath("$.shortId").value("asdfg"),
                         jsonPath("$.createdAt").exists(),
-                        jsonPath("$.uri").value("www.naver.com")
+                        jsonPath("$.uri").value("https://www.naver.com")
                 )
                 .andDo(print());
     }

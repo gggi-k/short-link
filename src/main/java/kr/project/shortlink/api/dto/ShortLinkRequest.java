@@ -3,6 +3,7 @@ package kr.project.shortlink.api.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
@@ -14,6 +15,7 @@ import java.net.MalformedURLException;
 import java.net.URI;
 
 @Slf4j
+@NoArgsConstructor(staticName = "create")
 @Accessors(chain = true)
 @Setter
 @Getter

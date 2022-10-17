@@ -5,9 +5,9 @@ import kr.project.shortlink.api.domain.vo.ShortLinkLogId;
 import kr.project.shortlink.api.dto.ShortLinkLogRequest;
 import kr.project.shortlink.api.dto.ShortLinkLogResponse;
 import kr.project.shortlink.api.repository.ShortLinkLogRepository;
+import kr.project.shortlink.core.util.Base62Util;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,17 +22,16 @@ public class ShortLinkLogService {
 
     private final ShortLinkLogRepository shortLinkLogRepository;
 
-
     @Cacheable(cacheNames = "shortLinkLogCache", key = "#shortId")
     @Transactional(readOnly = true)
     public List<ShortLinkLogResponse> findAllByShortId(final String shortId) {
-        return ShortLinkLogResponse.fromEntities(shortLinkLogRepository.findAllByShortLinkLogId_ShortIdOrderByShortLinkLogId_logAt(shortId));
+        return ShortLinkLogResponse.fromEntities(shortLinkLogRepository.findAllByShortLinkLogId_ShortLinkIdOrderByShortLinkLogId_logAt(Base62Util.decode(shortId)));
     }
 
     @CacheEvict(cacheNames = "shortLinkLogCache", key = "#shortLinkLogRequest.shortId")
     public ShortLinkLogResponse create(ShortLinkLogRequest shortLinkLogRequest) {
 
-        final ShortLinkLogId shortLinkLogId = ShortLinkLogId.of(shortLinkLogRequest.getShortId(), shortLinkLogRequest.getLogAt());
+        final ShortLinkLogId shortLinkLogId = ShortLinkLogId.of(Base62Util.decode(shortLinkLogRequest.getShortId()), shortLinkLogRequest.getLogAt());
         final Optional<ShortLinkLogEntity> optionalLogEntity = shortLinkLogRepository.findById(shortLinkLogId);
 
         final ShortLinkLogEntity shortLinkLogEntity = optionalLogEntity.orElse(ShortLinkLogEntity.builder()

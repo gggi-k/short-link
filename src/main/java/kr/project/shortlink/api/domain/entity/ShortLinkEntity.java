@@ -25,7 +25,7 @@ public class ShortLinkEntity {
 
     @Id
     @GeneratedValue
-    @Column(name = "SHORT_ID")
+    @Column(name = "SHORT_LINK_ID")
     @Comment("아이디")
     private Long shortLinkId;
 
@@ -41,6 +41,7 @@ public class ShortLinkEntity {
     @Comment("생성일시")
     private LocalDateTime createdAt = LocalDateTime.now();
 
+    @Transient
     public String getShortId() {
         return Base62Util.encode(this.shortLinkId);
     }

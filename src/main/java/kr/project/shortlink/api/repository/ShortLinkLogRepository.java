@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface ShortLinkLogRepository extends JpaRepository<ShortLinkLogEntity, ShortLinkLogId> {
 
-    List<ShortLinkLogEntity> findAllByShortLinkLogId_ShortIdOrderByShortLinkLogId_logAt(String shortId);
+    List<ShortLinkLogEntity> findAllByShortLinkLogId_ShortLinkIdOrderByShortLinkLogId_logAt(Long shortId);
 }
