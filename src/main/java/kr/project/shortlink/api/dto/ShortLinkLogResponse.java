@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.Mappings;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -21,6 +23,9 @@ public class ShortLinkLogResponse implements Serializable {
     @Mapper
     interface Mappers {
         ShortLinkLogResponse$MappersImpl IMPL = new ShortLinkLogResponse$MappersImpl();
+
+        @Mapping(target = "shortId", source = "shortLinkLogId.shortId")
+        @Mapping(target = "logAt", source = "shortLinkLogId.logAt")
         ShortLinkLogResponse fromEntity(ShortLinkLogEntity shortLinkLogEntity);
     }
 

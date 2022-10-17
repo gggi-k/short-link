@@ -3,6 +3,7 @@ package kr.project.shortlink.api.event;
 import kr.project.shortlink.api.application.ShortLinkLogService;
 import kr.project.shortlink.api.dto.ShortLinkLogRequest;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -12,6 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+@Slf4j
 @RequiredArgsConstructor
 @Component
 public class ShortLinkEventListener {
@@ -25,11 +27,13 @@ public class ShortLinkEventListener {
         COUNT_MAP.put(shortLinkEvent.getShortId(), COUNT_MAP.getOrDefault(shortLinkEvent.getShortId(), 0L) + 1);
     }
 
-    @Scheduled(cron = "0 0/10 * * * *")
+    @Scheduled(cron = "0 0/1 * * * *")
     public void schedule() {
 
         final Map<String, Long> map = new HashMap<>(COUNT_MAP);
         COUNT_MAP.clear();
+
+        log.info("schedule count map = {}", map);
 
         for (String shortId : map.keySet()) {
             shortLinkLogService.create(ShortLinkLogRequest.create()

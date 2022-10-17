@@ -6,6 +6,8 @@ import kr.project.shortlink.api.dto.ShortLinkLogRequest;
 import kr.project.shortlink.api.dto.ShortLinkLogResponse;
 import kr.project.shortlink.api.repository.ShortLinkLogRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,6 +29,7 @@ public class ShortLinkLogService {
         return ShortLinkLogResponse.fromEntities(shortLinkLogRepository.findAllByShortLinkLogId_ShortIdOrderByShortLinkLogId_logAt(shortId));
     }
 
+    @CacheEvict(cacheNames = "shortLinkLogCache", key = "#shortLinkLogRequest.shortId")
     public ShortLinkLogResponse create(ShortLinkLogRequest shortLinkLogRequest) {
 
         final ShortLinkLogId shortLinkLogId = ShortLinkLogId.of(shortLinkLogRequest.getShortId(), shortLinkLogRequest.getLogAt());

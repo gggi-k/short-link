@@ -14,7 +14,7 @@
                 <class>kr.project.shortlink.core.cache.ShortLinkCacheEventListener</class>
                 <event-firing-mode>ASYNCHRONOUS</event-firing-mode>
                 <event-ordering-mode>ORDERED</event-ordering-mode>
-                <events-to-fire-on></events-to-fire-on>
+                <events-to-fire-on>CREATED</events-to-fire-on>
             </listener>
         </listeners>
         <resources>
