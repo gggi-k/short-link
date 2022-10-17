@@ -1,6 +1,6 @@
 package kr.project.shortlink.api.application;
 
-import kr.project.shortlink.api.repository.ShortLinkRepository;
+import kr.project.shortlink.api.repository.ShortLinkLogRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -9,23 +9,24 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-public class ShortLinkServiceTest {
+public class ShortLinkLogServiceTest {
 
     @InjectMocks
-    private ShortLinkService shortLinkService;
+    private ShortLinkLogService shortLinkLogService;
 
     @Mock
-    private ShortLinkRepository shortLinkRepository;
+    private ShortLinkLogRepository shortLinkLogRepository;
+
+    @DisplayName("단축링크 - 로그 목록 조회")
+    @Test
+    void findAllByShortId() {
+
+    }
+
 
     @DisplayName("단축링크 생성")
     @Test
     void create() {
-
-    }
-
-    @DisplayName("단축링크 조회")
-    @Test
-    void findById() {
 
     }
 }

@@ -25,4 +25,8 @@ public class ShortLinkLogEntity {
     @Comment("횟수")
     @ColumnDefault("'0'")
     private long count;
+
+    public void addCount(long count) {
+        this.count += count;
+    }
 }

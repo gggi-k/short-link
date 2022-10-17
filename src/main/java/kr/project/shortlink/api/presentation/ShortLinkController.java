@@ -3,6 +3,7 @@ package kr.project.shortlink.api.presentation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import kr.project.shortlink.api.application.ShortLinkService;
+import kr.project.shortlink.api.dto.ShortLinkLogResponse;
 import kr.project.shortlink.api.dto.ShortLinkRequest;
 import kr.project.shortlink.api.dto.ShortLinkResponse;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +12,8 @@ import org.springframework.hateoas.EntityModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;

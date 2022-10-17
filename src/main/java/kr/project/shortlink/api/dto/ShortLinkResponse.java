@@ -7,13 +7,16 @@ import lombok.Getter;
 import lombok.ToString;
 import org.mapstruct.Mapper;
 
+import java.io.Serializable;
 import java.net.URL;
 import java.time.LocalDateTime;
 
 @Getter
 @Builder
 @ToString
-public class ShortLinkResponse {
+public class ShortLinkResponse implements Serializable {
+
+    private static final long serialVersionUID = 3007049024669126380L;
 
     @Mapper
     interface Mappers {
